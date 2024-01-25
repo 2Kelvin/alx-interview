@@ -1,38 +1,36 @@
 #!/usr/bin/python3
-"""Log parsing interview challenge"""
+'''Log parsing'''
 import sys
-import re
 
-totalFileSize = 0
-statusCodeCounts = {}
-lineCount = 0
+dictCodes = {'200': 0, '301': 0, '400': 0, '401': 0, '403': 0,
+                     '404': 0, '405': 0, '500': 0}
 
-while True:
-    try:
-        userLineInput = sys.stdin.readline()
-        inputFormat = (
-            r"^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}) - \["
-            r"(.*?)"
-            r"\] \"GET /projects/260 HTTP/1.1\" (\d{3}) (\d+)$"
-        )
-        matching = re.match(inputFormat, userLineInput)
+tSize = 0
+count = 0 
 
-        if matching:
-            lineCount += 1
-            fileSize = int(matching.group(4))
-            totalFileSize += fileSize
-            # Convert status code to integer
-            statusCode = int(matching.group(3))
-            if statusCode in [200, 301, 400, 401, 403, 404, 405, 500]:
-                statusCodeCounts[statusCode] = statusCodeCounts.get(
-                    statusCode, 0) + 1
-            if lineCount % 10 == 0 or KeyboardInterrupt:
-                print('File size: {}'.format(totalFileSize))
-                # Print status codes in ascending order
-                for code in sorted(statusCodeCounts):
-                    print('{}: {}'.format(code, statusCodeCounts[code]))
-        else:
-            continue  # Skip lines that don't match the format
+try:
+    for line in sys.stdin:
+        line_list = line.split(" ")
 
-    except KeyboardInterrupt:
-        break  # Exit the loop on Ctrl+C
+        if len(line_list) > 4:
+            scode = line_list[-2]
+            fSize = int(line_list[-1])
+            if scode in dictCodes.keys():
+                dictCodes[scode] += 1
+            tSize += fSize
+            count += 1
+        if count == 10:
+            count = 0
+            print('File size: {}'.format(tSize))
+            for key, value in sorted(dictCodes.items()):
+                if value != 0:
+                    print('{}: {}'.format(key, value))
+
+except Exception as err:
+    pass
+
+finally:
+    print('File size: {}'.format(tSize))
+    for key, value in sorted(dictCodes.items()):
+        if value != 0:
+            print('{}: {}'.format(key, value))
