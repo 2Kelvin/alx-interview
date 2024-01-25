@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-'''Log parsing'''
 import sys
 import re
 
@@ -27,10 +26,10 @@ while True:
                 statusCodeCounts[statusCode] = statusCodeCounts.get(
                     statusCode, 0) + 1
             if lineCount % 10 == 0 or KeyboardInterrupt:
-                print(f'File size: {totalFileSize}')
+                print('File size: {}'.format(totalFileSize))
                 # Print status codes in ascending order
                 for code in sorted(statusCodeCounts):
-                    print(f'{code}: {statusCodeCounts[code]}')
+                    print('{}: {}'.format(code, statusCodeCounts[code]))
         else:
             continue  # Skip lines that don't match the format
 
