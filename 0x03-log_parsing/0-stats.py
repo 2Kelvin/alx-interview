@@ -32,9 +32,7 @@ while True:
                 for code in sorted(statusCodeCounts):
                     print(f'{code}: {statusCodeCounts[code]}')
         else:
-            # Skip lines that don't match the format
-            continue
+            continue  # Skip lines that don't match the format
 
     except KeyboardInterrupt:
-        # Exit the loop on Ctrl+C
-        break
+        break  # Exit the loop on Ctrl+C
