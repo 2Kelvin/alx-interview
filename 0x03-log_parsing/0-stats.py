@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Log parsing interview challenge"""
 import sys
 import re
 
