@@ -19,18 +19,22 @@ while True:
 
         if matching:
             lineCount += 1
-            file_size = int(matching.group(4))
-            totalFileSize += file_size
-            status_code = int(matching.group(3))
-            statusCodeCounts[status_code] = statusCodeCounts.get(
-                status_code, 0) + 1
-
+            fileSize = int(matching.group(4))
+            totalFileSize += fileSize
+            # Convert status code to integer
+            statusCode = int(matching.group(3))
+            if statusCode in [200, 301, 400, 401, 403, 404, 405, 500]:
+                statusCodeCounts[statusCode] = statusCodeCounts.get(
+                    statusCode, 0) + 1
             if lineCount % 10 == 0 or KeyboardInterrupt:
                 print(f'File size: {totalFileSize}')
+                # Print status codes in ascending order
                 for code in sorted(statusCodeCounts):
                     print(f'{code}: {statusCodeCounts[code]}')
         else:
+            # Skip lines that don't match the format
             continue
 
     except KeyboardInterrupt:
+        # Exit the loop on Ctrl+C
         break
