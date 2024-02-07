@@ -5,12 +5,40 @@ import sys
 if len(sys.argv) != 2:
     print('Usage: nqueens N\n')
     sys.exit(1)
-elif type(sys.argv[1]) != int:
+
+if not sys.argv[1].isdigit():
     print('N must be a number\n')
     sys.exit(1)
-elif sys.argv[1] < 4:
+
+if int(sys.argv[1]) < 4:
     print('N must be atleast 4\n')
     sys.exit(1)
-else:
-    # solution here
-    pass
+
+argN = int(sys.argv[1])
+
+
+def findQueens(x, i=0, e=[], f=[], g=[]):
+    '''find the queens'''
+    if i < x:
+        for j in range(x):
+            if j not in e and i + j not in f and i - j not in g:
+                yield from findQueens(
+                    x, i + 1, e + [j], f + [i + j], g + [i - j])
+    else:
+        yield e
+
+
+def solution(q):
+    '''find the solution'''
+    p = []
+    i = 0
+    for solution in findQueens(q, 0):
+        for s in solution:
+            p.append([i, s])
+            i += 1
+        print(p)
+        p = []
+        i = 0
+
+
+solution(argN)
