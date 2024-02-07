@@ -3,15 +3,15 @@
 import sys
 
 if len(sys.argv) != 2:
-    print('Usage: nqueens N\n')
+    print('Usage: nqueens N')
     sys.exit(1)
 
 if not sys.argv[1].isdigit():
-    print('N must be a number\n')
+    print('N must be a number')
     sys.exit(1)
 
 if int(sys.argv[1]) < 4:
-    print('N must be atleast 4\n')
+    print('N must be atleast 4')
     sys.exit(1)
 
 argN = int(sys.argv[1])
