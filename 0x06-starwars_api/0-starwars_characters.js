@@ -10,8 +10,14 @@ request(filmUrl, (err, response, body) => {
     // console.log(body);
     data = JSON.parse(body);
     const movieXtersArray = data.characters;
-    console.log(movieXtersArray);
-    console.log(Object.keys(data));
+    // console.log(movieXtersArray);
+    for (const xterUrl of movieXtersArray) {
+        request(xterUrl, (er, resp, bdy) => {
+            if (er) console.error(er);
+            const xterData = JSON.parse(bdy);
+            console.log(xterData.name);
+        });
+    }
 });
 // access all characters through => .characters which is a list
 // loop thro array, printing characters
