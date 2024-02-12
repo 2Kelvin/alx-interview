@@ -8,8 +8,10 @@ const filmUrl = `https://swapi-api.alx-tools.com/api/films/${movieID}`;
 request(filmUrl, (err, response, body) => {
     if (err) console.error(err);
     // console.log(body);
-    const movieXtersArray = body.characters;
-    console.log(Object.keys(body));
+    data = JSON.parse(body);
+    const movieXtersArray = data.characters;
+    console.log(movieXtersArray);
+    console.log(Object.keys(data));
 });
 // access all characters through => .characters which is a list
 // loop thro array, printing characters
